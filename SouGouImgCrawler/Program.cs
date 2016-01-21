@@ -9,8 +9,6 @@ namespace SouGouImgCrawler
 {
     class Program
     {
-        public static string ThreadManager { get; private set; }
-
         static void Main(string[] args)
         {
             //List<Thread> threads = new List<Thread>();
@@ -21,7 +19,8 @@ namespace SouGouImgCrawler
                 if (!string.IsNullOrEmpty(keyWord.Trim()))
                 {
                     //           
-                    Thread t = new Thread(()=> {
+                    Thread t = new Thread(() =>
+                    {
                         #region 抓取任务开始
                         String start = "";
                         string taskKeyWord = keyWord;
@@ -56,8 +55,8 @@ namespace SouGouImgCrawler
                             //解析结果，得到停止条件                            
                             System.Web.Script.Serialization.JavaScriptSerializer js = new System.Web.Script.Serialization.JavaScriptSerializer();
                             SouGouImgModel model = js.Deserialize<SouGouImgModel>(html);
-                        
-                            if (Convert.ToInt32(start)>=Convert.ToInt32(model.totalItems.Replace(",","")))
+
+                            if (Convert.ToInt32(start) >= Convert.ToInt32(model.totalItems.Replace(",", "")))
                             {
                                 Console.WriteLine("结束时间：【" + DateTime.Now + "】-任务关键字：" + taskKeyWord);
                                 break;
@@ -68,17 +67,17 @@ namespace SouGouImgCrawler
                             //Console.WriteLine(count);
                             count++;
 
-                        } 
+                        }
                         #endregion
-                        
+
                     });
                     //threads.Add(t);
                     t.Start();
-                    Console.WriteLine("开始时间：【"+DateTime.Now+"】-任务关键字："+keyWord);
-                    
+                    Console.WriteLine("开始时间：【" + DateTime.Now + "】-任务关键字：" + keyWord);
+
                 }
             }
-            
+
         }
 
 

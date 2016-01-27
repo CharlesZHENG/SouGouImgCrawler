@@ -57,10 +57,13 @@ namespace SouGouImgCrawler
                             SouGouImgModel model = js.Deserialize<SouGouImgModel>(html);
 
                             if (Convert.ToInt32(start) >= Convert.ToInt32(model.totalItems.Replace(",", "")))
+                            //if (model.items.Count==0)
                             {
                                 Console.WriteLine("结束时间：【" + DateTime.Now + "】-任务关键字：" + taskKeyWord);
                                 break;
                             }
+                           
+                            Console.WriteLine("当前个数："+model.items.Count+"==请求总个数："+start+"==MaxEnd："+model.maxEnd+"==总个数："+model.totalItems);
                             //下一轮                
                             int span = random.Next(3000, 10000);
                             Thread.Sleep(span);
